@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewBag.Title = "SHOW";
+}
+
+<table id="employeeTable" class="table-bordered table-hover">
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>Email</td>
+            <td>Password</td>
+            <td>Phone</td>
+            <td>Address</td>
+            <td>Delete</td>
+            <td>Edit</td>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: "https://localhost:44306/api/showdata",
+            type: "GET",
+            dataType: 'json',
+            success: function (data) {
+                var row = '';
+                $.each(data, function (index, item) {
+                    row += `
+                    <tr>
+                    <td class="p-2">${item.id}</td>
+                    <td class="p-2">${item.name}</td>
+                    <td class="p-2">${item.email}</td>
+                    <td class="p-2">${item.password}</td>
+                    <td class="p-2">${item.phone}</td>
+                    <td class="p-2">${item.address}</td>
+                    <td class="p-2">
+                    <button class="btn btn-primary delete" data-id="${item.id}">Delete</button>
+                    </td>
+                  <td class="p-2">
+                    <button class="btn btn-primary edit" data-id="${item.id}">Edit</button>
+                  </td>
+                    </tr>
+                    `
+                });
+                $("#employeeTable tbody").html(row);
+            },
+            error: function () {
+                alert('Data fetching error.');
+            }
+
+        })
+    })
+
+    //Delete Process
+    $(document).on("click", ".delete", function () {
+        var id = $(this).data("id"); 
+        var row = $(this).closest("tr");  
+
+        $.ajax({
+            url: "https://localhost:44306/api/Employee/delete/?id=" + id,  
+            type: "DELETE",
+            success: function (response) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Success!",
+                    text: "Data has been successfully deleted!",
+                });
+                row.remove();  
+            },
+            error: function () {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error!",
+                    text: "Data delete error",
+                });
+            }
+        });
+    });
+
+    $(document).on("click", ".edit", function () {
+        var userid = $(this).data("id");
+        window.location.href = `edit?id=${userid}`;
+    })
+
+
+
+
+</script>

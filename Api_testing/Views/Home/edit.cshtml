@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewBag.Title = "edit_button";
+}
+<style>
+    fieldset {
+        border: 2px solid #007bff;
+        padding: 30px 50px;
+        border-radius: 8px;
+        box-shadow: 0px 0px 10px rgba(0, 123, 255, 0.2);
+        width: 50%;
+        max-width: 800px;
+        background-color: #f9f9f9;
+    }
+
+    legend {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #007bff;
+        padding: 0 10px;
+    }
+</style>
+<div class="container-fluid ">
+    <div class="container d-flex align-items-center justify-content-center py-4">
+
+        <fieldset>
+            <legend>From Updation</legend>
+            <form>
+                <input type="hidden" id="id" value="" />
+                <div class="mb-2">
+                    <div class="form-label">Name</div>
+                    <input type="text" class="form-control" name="name" id="name" placeholder="Please enter your sweet name" />
+                </div>
+                <div class="mb-2">
+                    <div class="form-label">Email</div>
+                    <input type="Email" class="form-control" name="email" id="email" placeholder="Please enter your email" />
+                </div>
+                <div class="mb-2">
+                    <div class="form-label">Password</div>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Please enter your password" />
+                </div>
+                <div class="mb-2">
+                    <div class="form-label">Phone</div>
+                    <input type="text" class="form-control" name="phone" id="phone" placeholder="Please enter your phone number" />
+                </div>
+                <div class="mb-2">
+                    <div class="form-label">Address</div>
+                    <textarea class="form-control" name="address" id="address" placeholder="Address"></textarea>
+                </div>
+                <div class="mb-2">
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </div>
+            </form>
+        </fieldset>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var urlParams = new URLSearchParams(window.location.search);
+        var id = urlParams.get("id");
+
+
+
+</script>
