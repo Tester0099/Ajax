@@ -101,7 +101,7 @@ namespace Api_testing.DAL
         }
 
 
-        public List<Emp_data> getuserbyid(int id)
+        public List<Emp_data> singleuser(int id)
         {
             List<Emp_data> info = new List<Emp_data>();
 
@@ -112,7 +112,6 @@ namespace Api_testing.DAL
                 {
                     cmd.Parameters.AddWithValue("@id",id);
                     con.Open();
-                    cmd.ExecuteNonQuery();
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())

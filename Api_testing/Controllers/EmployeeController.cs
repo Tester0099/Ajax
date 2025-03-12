@@ -84,7 +84,7 @@ namespace Api_testing.Controllers
         }
 
         [HttpPut]
-        [Route("api/update")]
+        [Route("api/Update")]
         public IHttpActionResult Update()
         {
             var httprequest = HttpContext.Current.Request;
@@ -119,13 +119,13 @@ namespace Api_testing.Controllers
             }
         }
 
-        //[HttpGet]
-        //[Route("api/getuserbyid")]
-        //public IHttpActionResult Get()
-        //{
-        //    List<Emp_data> emp_Datas=dal.getuserbyid();
-        //    return Ok(emp_Datas);
-        //}
+        [HttpGet]
+        [Route("api/getuserbyid/{id}")]
+        public IHttpActionResult Getdata (int id)
+        {
+            List<Emp_data> emp_Datas =dal.singleuser(id);
+            return Ok(emp_Datas);
+        }
 
     }
 }

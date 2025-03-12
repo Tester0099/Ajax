@@ -37,7 +37,7 @@
                 </div>
                 <div class="mb-2">
                     <div class="form-label">Password</div>
-                    <input type="password" class="form-control" name="password" id="password" placeholder="Please enter your password" />
+                    <input type="text" class="form-control" name="password" id="password" placeholder="Please enter your password" />
                 </div>
                 <div class="mb-2">
                     <div class="form-label">Phone</div>
@@ -48,7 +48,7 @@
                     <textarea class="form-control" name="address" id="address" placeholder="Address"></textarea>
                 </div>
                 <div class="mb-2">
-                    <button class="btn btn-primary" type="submit">Submit</button>
+                    <button class="btn btn-primary" id="update" type="submit">Update</button>
                 </div>
             </form>
         </fieldset>
@@ -56,10 +56,79 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
     $(document).ready(function () {
         var urlParams = new URLSearchParams(window.location.search);
-        var id = urlParams.get("id");
+        var userid = urlParams.get("id");
+
+        if (userid ) {
+            $.ajax({
+                url: `https://localhost:44306/api/getuserbyid/${userid}`,
+                type: "GET",
+                data: null,
+                success: function (response) {
+
+                    if (response.length > 0) {
+                        var userData = response[0];
+                        $("#id").val(userData.id);
+                        $("#name").val(userData.name);
+                        $("#email").val(userData.email);
+                        $("#password").val(userData.password);
+                        $("#phone").val(userData.phone);
+                        $("#address").val(userData.address);
+                    }
+                    else {
+                        console.log("userdata is not find");
+                    }
+                },
+                error: function () {
+                    alert("Data fetching error");
+                }
+
+            })
+        }
+        else {
+            console.log("user id not find");
+        }
+
+    });
+
+
+    $(document).on("click", "#update", function () {
+
+        var userId = $("#id").val(); 
+
+        var formData = {
+            id: userId,
+            name: $("#name").val(),
+            email: $("#email").val(),
+            password: $("#password").val(),
+            phone: $("#phone").val(),
+            address: $("#address").val()
+        };
+
+        $.ajax({
+           url: `https://localhost:44306/api/update/${userId}`,
+            type: "PUT",
+            contentType: "application/json",
+            data: JSON.stringify(formData), 
+            success: function (response) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Success!",
+                    text: "Data has been successfully updated!",
+                });
+            },
+            error: function () {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error!",
+                    text: "Data update failed. Please try again.",
+                });
+            }
+        });
+    });
 
 
 
